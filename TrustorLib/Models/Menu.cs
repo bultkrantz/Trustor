@@ -18,6 +18,6 @@ namespace TrustorLib.Models
                 "\n 7) Insättning " +
                 "\n 8) Uttag " +
                 "\n 9) Överföring";
-        public static string WelcomeText => "******************************* VÄLKOMMEN TILL BANKAPP 1.0 *******************************\n\n";
+        public static string WelcomeText => "******************************* VÄLKOMMEN TILL TRUSTOR 1.0 *******************************\n\n";
     }
 }

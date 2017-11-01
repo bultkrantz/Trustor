@@ -1,4 +1,5 @@
 ﻿using System;
+using TrustorLib;
 using TrustorLib.Models;
 
 namespace Trustor
@@ -7,6 +8,7 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
+            var system = new TrustorBankSystem();
             var input = ConsoleKey.A;
 
             while (input != 0)

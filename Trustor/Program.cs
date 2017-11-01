@@ -8,6 +8,7 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
+            var system = new TrustorBankSystem(); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
             var input = ConsoleKey.A;
 
             while (input != 0)
@@ -23,6 +24,8 @@ namespace Trustor
                         break;
                     case ConsoleKey.D1: case ConsoleKey.NumPad1:
                         Console.WriteLine("\n Sök kund skall köras");
+                        //Exempel...
+                        system.SearchCustomer(Console.ReadLine());
                         break;
                     case ConsoleKey.D2: case ConsoleKey.NumPad2:
                         Console.WriteLine("\n Visa kundbild skall köras");

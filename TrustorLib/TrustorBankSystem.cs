@@ -17,6 +17,11 @@ namespace TrustorLib
             _customerManager = customerManager;
         }
 
+        public TrustorBankSystem()
+        {
+
+        }
+
         public List<Customer> SearchCustomer(string search)
         {
             return _customerManager.SearchCustomer(search);

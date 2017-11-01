@@ -1,47 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TrustorLib.Interfaces;
 using TrustorLib.Models;
 
 namespace TrustorLib
 {
     public class TrustorBankSystem
     {
-        public List<Customer> SearchCustomer(string name)
+        private IAccountManager _accountManager;
+        private ICustomerManager _customerManager;
+
+        public TrustorBankSystem(IAccountManager accountManager, ICustomerManager customerManager)
         {
-            throw new NotImplementedException();
+            _accountManager = accountManager;
+            _customerManager = customerManager;
+        }
+
+        public List<Customer> SearchCustomer(string search)
+        {
+            return _customerManager.SearchCustomer(search);
         }
         public Customer ShowCustomerInfo(int customerNumber)
         {
-            throw new NotImplementedException();
+            return _customerManager.ShowCustomerInfo(customerNumber);
         }
         public Customer CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            return _customerManager.CreateCustomer(customer);
         }
         public void DeleteCustomer(int customerNumber)
         {
-            throw new NotImplementedException();
+            _customerManager.DeleteCustomer(customerNumber);
         }
         public Account CreateAccount(Account account)
         {
-            throw new NotImplementedException();
+            return _accountManager.CreateAccount(account);
         }
         public void DeleteAccount(int accountNumber)
         {
-            throw new NotImplementedException();
+            _accountManager.DeleteAccount(accountNumber);
         }
-        public void NewDeposit(int accountNumber, decimal deposit)
+        public void NewDeposit(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            _accountManager.NewDeposit(accountNumber, amount);
         }
-        public void NewWithdrawal(int accountNumber, decimal withdrawal)
+        public void NewWithdrawal(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            _accountManager.NewWithdrawal(accountNumber, amount);
         }
         public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
         }
     }
 }

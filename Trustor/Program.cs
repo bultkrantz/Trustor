@@ -1,4 +1,5 @@
 ﻿using System;
+using TrustorLib;
 using TrustorLib.Models;
 
 namespace Trustor

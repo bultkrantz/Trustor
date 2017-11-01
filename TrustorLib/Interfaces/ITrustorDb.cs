@@ -6,6 +6,6 @@ namespace TrustorLib.Interfaces
 {
     public interface ITrustorDb
     {
-
+        void SaveChanges();
     }
 }

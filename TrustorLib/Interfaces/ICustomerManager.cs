@@ -5,12 +5,11 @@ using TrustorLib.Models;
 
 namespace TrustorLib.Interfaces
 {
-    public interface IAccountManager
+    public interface ICustomerManager
     {
-        Account CreateAccount();
-        void DeleteAccount(int accountNumber);
-        void NewDeposit(int accountNumber, decimal amount);
-        void NewWithdrawal(int accountNumber, decimal amount);
-        void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount);
+        List<Customer> SearchCustomer(string search);
+        Customer ShowCustomerInfo(int customerNumber);
+        Customer CreateCustomer(Customer customer);
+        void DeleteCustomer(int customerNumber);
     }
 }

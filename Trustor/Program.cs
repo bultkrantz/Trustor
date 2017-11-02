@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using TrustorLib;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -9,7 +10,11 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
-            var system = new TrustorBankSystem(new CustomerManager()); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
+            var fileName = "bankdata.txt";
+            var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            var trustorDb = new TrustorDb(path);
+
+            var system = new TrustorBankSystem(new CustomerManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
             var input = ConsoleKey.A;
 
             while (input != 0)
@@ -36,7 +41,18 @@ namespace Trustor
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        Console.WriteLine("\n Visa kundbild skall köras");
+                        Console.WriteLine("\n Visa info från kund:");
+
+                        var customerNumberInput = Console.ReadLine();
+
+                        if (int.TryParse(customerNumberInput, out var parsedResult))
+                        {
+                            var customerInfo = system.ShowCustomerInfo(parsedResult);
+                            Console.Clear();
+                            Console.WriteLine(customerInfo);
+                            Console.ReadKey();
+                        }
+
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:

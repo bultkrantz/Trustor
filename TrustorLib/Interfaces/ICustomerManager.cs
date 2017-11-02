@@ -8,7 +8,7 @@ namespace TrustorLib.Interfaces
     public interface ICustomerManager
     {
         List<Customer> SearchCustomer(string search);
-        Customer ShowCustomerInfo(int customerNumber);
+        Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber);
         Customer CreateCustomer(Customer customer);
         int DeleteCustomer(int customerNumber);
         int CreateNewCustomerNumber();

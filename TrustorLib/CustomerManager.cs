@@ -10,13 +10,14 @@ namespace TrustorLib
 {
     public class CustomerManager : ICustomerManager
     {
-        private TrustorDb _context;
+        private readonly TrustorDb _context;
 
-        public CustomerManager()
+        public CustomerManager(TrustorDb context)
         {
-            string fileName = "bankdata.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
-            _context = new TrustorDb(path);
+            _context = context;
+            //string fileName = "bankdata.txt";
+            //string path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            //_context = new TrustorDb(path);
         }
         public Customer CreateCustomer(Customer customer)
         {
@@ -48,12 +49,15 @@ namespace TrustorLib
 
         public List<Customer> SearchCustomer(string search)
         {
-            return _context.Customers.Where(e => e.CompanyName.Contains(search) && e.City.Contains(search)).ToList();
+            return _context.Customers.Where(e => e.CompanyName.Contains(search) || e.City.Contains(search)).ToList();
         }
 
-        public Customer ShowCustomerInfo(int customerNumber)
+        public Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber)
         {
-            throw new NotImplementedException();
+            var customer = _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
+            var account = _context.Accounts.Where(x => customer != null && x.CustomerNumber == customer.CustomerNumber).ToList();
+
+            return Tuple.Create(customer, account);
         }
 
         public int CreateNewCustomerNumber()

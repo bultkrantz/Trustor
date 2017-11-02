@@ -14,8 +14,9 @@ namespace Trustor
 
             while (input != 0)
             {
+                Console.Clear();
                 Console.WriteLine(Menu.WelcomeText + Menu.MenuText);
-
+          
                 input = Console.ReadKey().Key;
 
                 switch (input)
@@ -56,6 +57,7 @@ namespace Trustor
                         newCustomer.Country = Console.ReadLine();
                         Console.WriteLine("\n Skriv in telefonnummer tryck sedan [Enter] ");
                         newCustomer.Phone = Console.ReadLine();
+                        Console.Clear();
                         Console.WriteLine(system.CreateCustomer(newCustomer));
                         Console.ReadLine();
                         break;

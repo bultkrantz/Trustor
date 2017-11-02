@@ -16,7 +16,7 @@ namespace Trustor
             {
                 Console.Clear();
                 Console.WriteLine(Menu.WelcomeText + Menu.MenuText);
-          
+
                 input = Console.ReadKey().Key;
 
                 switch (input)
@@ -63,7 +63,19 @@ namespace Trustor
                         break;
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
-                        Console.WriteLine("\n Ta bort kund skall köras");
+                        Console.WriteLine("\n Mata in kundnummer: ");
+                        int customerNumber;
+                        var result = int.TryParse(Console.ReadLine(), out customerNumber);
+                        if (!result || customerNumber.ToString().Length > 4)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kundnummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.DeleteCustomer(customerNumber));
+                        Console.ReadLine();
                         break;
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:

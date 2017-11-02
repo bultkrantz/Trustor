@@ -21,12 +21,24 @@ namespace TrustorLib
         public Customer CreateCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
+            _context.SaveChanges();
             return customer;
         }
 
-        public void DeleteCustomer(int customerNumber)
+        public int DeleteCustomer(int customerNumber)
         {
-            throw new NotImplementedException();
+            var customerToRemove = _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
+            if (customerToRemove == null)
+            {
+                return 1;
+            }
+            var customerAccounts = _context.Accounts.Where(x => x.CustomerNumber == customerNumber).Any();
+            if (customerAccounts)
+            {
+                return 2;
+            }
+           _context.Customers.Remove(customerToRemove);
+            return 3;
         }
 
         public List<Customer> SearchCustomer(string search)

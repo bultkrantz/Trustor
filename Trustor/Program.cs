@@ -37,21 +37,21 @@ namespace Trustor
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
                         var newCustomer = new Customer();
-                        Console.WriteLine("\n Skriv in företagsnamn tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in företagsnamn (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.CompanyName = Console.ReadLine();
-                        Console.WriteLine("\n Skriv in organisationnummer tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in organisationnummer (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.OrgNumber = Console.ReadLine();
-                        Console.WriteLine("\n Skriv in adress tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in adress (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.Address = Console.ReadLine();
                         Console.WriteLine("\n Skriv in stad tryck sedan [Enter] ");
                         newCustomer.City = Console.ReadLine();
-                        Console.WriteLine("\n Skriv in region tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in region (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.Region = Console.ReadLine();
-                        Console.WriteLine("\n Skriv in postnummer tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in postnummer (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.PostalCode = Console.ReadLine();
                         Console.WriteLine("\n Skriv in land tryck sedan [Enter] ");
                         newCustomer.Country = Console.ReadLine();
-                        Console.WriteLine("\n Skriv in telefonnummer tryck sedan [Enter] ");
+                        Console.WriteLine("\n Skriv in telefonnummer (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.Phone = Console.ReadLine();
                         Console.WriteLine(system.CreateCustomer(newCustomer));
                         Console.ReadLine();

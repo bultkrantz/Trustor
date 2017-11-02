@@ -32,6 +32,29 @@ namespace TrustorLib
         }
         public string CreateCustomer(Customer customer)
         {
+            var creationDenied = "får ej lämnas tomt, kunde ej skapa kund. Tryck [Enter] för att fortsätta.";
+            if (string.IsNullOrWhiteSpace(customer.CompanyName))
+            {
+                return $"**** Företagsnamn {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.OrgNumber))
+            {
+                return $"**** Organisationsnummer {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.Address))
+            {
+                return $"**** Adress {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.PostalCode))
+            {
+                return $"**** Postnummer {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.Region))
+            {
+                return $"**** Postort {creationDenied} ****";
+            }
+
+
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }

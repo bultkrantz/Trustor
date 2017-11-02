@@ -32,12 +32,17 @@ namespace TrustorLib
             {
                 return 1;
             }
-            var customerAccounts = _context.Accounts.Where(x => x.CustomerNumber == customerNumber).Any();
-            if (customerAccounts)
+            var customerAccounts = _context.Accounts.Where(x => x.CustomerNumber == customerNumber).ToList();
+            foreach (var account in customerAccounts)
             {
-                return 2;
+                if (account.Balance > 0)
+                {
+                    return 2;
+                }
+                _context.Accounts.Remove(account);
             }
-           _context.Customers.Remove(customerToRemove);
+            _context.Customers.Remove(customerToRemove);
+            _context.SaveChanges();
             return 3;
         }
 

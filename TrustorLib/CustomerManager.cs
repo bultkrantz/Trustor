@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -12,7 +13,9 @@ namespace TrustorLib
 
         public CustomerManager()
         {
-            _context = new TrustorDb("test");
+            string fileName = "bankdata.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            _context = new TrustorDb(path);
         }
         public Customer CreateCustomer(Customer customer)
         {

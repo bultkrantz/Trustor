@@ -75,7 +75,7 @@ namespace TrustorLib
             var result = _customerManager.DeleteCustomer(customerNumber);
             if (result == 2)
             {
-                return "**** Kunden har konton, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****";
+                return "**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****";
             }
             else if (result == 1)
             {

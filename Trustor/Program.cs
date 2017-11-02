@@ -35,7 +35,18 @@ namespace Trustor
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        Console.WriteLine("\n Visa kundbild skall köras");
+                        Console.WriteLine("\n Visa info från kund:");
+
+                        var customerNumberInput = Console.ReadLine();
+
+                        if (int.TryParse(customerNumberInput, out var parsedResult))
+                        {
+                            var customerInfo = system.ShowCustomerInfo(parsedResult);
+                            Console.Clear();
+                            Console.WriteLine(customerInfo);
+                            Console.ReadKey();
+                        }
+
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:

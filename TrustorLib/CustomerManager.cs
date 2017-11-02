@@ -31,12 +31,12 @@ namespace TrustorLib
 
         public List<Customer> SearchCustomer(string search)
         {
-            return _context.Customers.Where(e => e.CompanyName.Contains(search) && e.City.Contains(search)).ToList();
+            return _context.Customers.Where(e => e.CompanyName.Contains(search) || e.City.Contains(search)).ToList();
         }
 
         public Customer ShowCustomerInfo(int customerNumber)
         {
-            throw new NotImplementedException();
+            return _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
         }
     }
 }

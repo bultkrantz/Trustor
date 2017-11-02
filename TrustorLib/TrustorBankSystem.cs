@@ -27,21 +27,48 @@ namespace TrustorLib
             var customers = _customerManager.SearchCustomer(search);
 
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"\nKunder som innehåller '{search}':\n");
 
-            foreach (var customer in customers)
+            if (customers.Count != 0)
             {
-                stringBuilder.AppendLine($"{customer.CustomerNumber}: {customer.CompanyName}");
+                stringBuilder.AppendLine($"\nKunder som innehåller '{search}':\n");
+
+                foreach (var customer in customers)
+                {
+                    stringBuilder.AppendLine($"{customer.CustomerNumber}: {customer.CompanyName}");
+                }
+            }
+            else
+            {
+                stringBuilder.AppendLine("\nInga kunder hittades");
             }
 
             stringBuilder.AppendLine("\n\nTryck [Enter] för att fortsätta.");
 
             return stringBuilder.ToString();
         }
-        public Customer ShowCustomerInfo(int customerNumber)
+
+        public string ShowCustomerInfo(int customerNumber)
         {
-            return _customerManager.ShowCustomerInfo(customerNumber);
+            var customer = _customerManager.ShowCustomerInfo(customerNumber);
+            var stringBuilder = new StringBuilder();
+
+            if (customer != null)
+            {
+                stringBuilder.AppendLine($"Kundnummer {customer.CustomerNumber}");
+                stringBuilder.AppendLine($"Organisationsnummer: {customer.OrgNumber}");
+                stringBuilder.AppendLine($"Namn: {customer.CompanyName}");
+                stringBuilder.AppendLine($"Address: {customer.Address}");
+            }
+            else
+            {
+                stringBuilder.AppendLine($"\nKund med kundnummer {customerNumber} hittades ej.");
+            }
+
+            stringBuilder.AppendLine("\n\nTryck [Enter] för att fortsätta");
+
+            return stringBuilder.ToString();
         }
+
         public string CreateCustomer(Customer customer)
         {
             var newCustomer = _customerManager.CreateCustomer(customer);

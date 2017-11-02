@@ -15,7 +15,7 @@ namespace Trustor
             var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
             var trustorDb = new TrustorDb(path);
 
-            var system = new TrustorBankSystem(new CustomerManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
+            var system = new TrustorBankSystem(new CustomerManager(trustorDb), new AccountManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
 
             var input = ConsoleKey.A;
 

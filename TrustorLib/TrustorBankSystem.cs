@@ -11,14 +11,9 @@ namespace TrustorLib
         private IAccountManager _accountManager;
         private ICustomerManager _customerManager;
 
-        public TrustorBankSystem(IAccountManager accountManager, ICustomerManager customerManager)
+        public TrustorBankSystem(ICustomerManager customerManager, IAccountManager accountManager)
         {
             _accountManager = accountManager;
-            _customerManager = customerManager;
-        }
-
-        public TrustorBankSystem(ICustomerManager customerManager)
-        {
             _customerManager = customerManager;
         }
 

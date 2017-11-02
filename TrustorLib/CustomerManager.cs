@@ -8,6 +8,12 @@ namespace TrustorLib
 {
     class CustomerManager : ICustomerManager
     {
+        private TrustorDb _context;
+
+        public CustomerManager()
+        {
+            _context = new TrustorDb("test");
+        }
         public Customer CreateCustomer(Customer customer)
         {
             throw new NotImplementedException();

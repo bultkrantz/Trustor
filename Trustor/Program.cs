@@ -26,9 +26,12 @@ namespace Trustor
                         break;
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
-                        Console.WriteLine("\n Sök kund skall köras");
-                        //Exempel...
-                        system.SearchCustomer(Console.ReadLine());
+                        Console.WriteLine("\n Sök efter kund:");
+                        var search = Console.ReadLine();
+                        var answer = system.SearchCustomer(search);
+                        Console.Clear();
+                        Console.WriteLine(answer);
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:

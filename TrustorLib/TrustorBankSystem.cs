@@ -22,9 +22,21 @@ namespace TrustorLib
             _customerManager = customerManager;
         }
 
-        public List<Customer> SearchCustomer(string search)
+        public string SearchCustomer(string search)
         {
-            return _customerManager.SearchCustomer(search);
+            var customers = _customerManager.SearchCustomer(search);
+
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"\nKunder som innehåller '{search}':\n");
+
+            foreach (var customer in customers)
+            {
+                stringBuilder.AppendLine($"{customer.CustomerNumber}: {customer.CompanyName}");
+            }
+
+            stringBuilder.AppendLine("\n\nTryck [Enter] för att fortsätta.");
+
+            return stringBuilder.ToString();
         }
         public Customer ShowCustomerInfo(int customerNumber)
         {

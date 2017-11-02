@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -30,7 +31,7 @@ namespace TrustorLib
 
         public List<Customer> SearchCustomer(string search)
         {
-            throw new NotImplementedException();
+            return _context.Customers.Where(e => e.CompanyName.Contains(search) && e.City.Contains(search)).ToList();
         }
 
         public Customer ShowCustomerInfo(int customerNumber)

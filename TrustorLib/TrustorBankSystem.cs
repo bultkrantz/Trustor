@@ -71,12 +71,44 @@ namespace TrustorLib
 
         public string CreateCustomer(Customer customer)
         {
+            var creationDenied = "får ej lämnas tomt, kunde ej skapa kund. Tryck [Enter] för att fortsätta.";
+            if (string.IsNullOrWhiteSpace(customer.CompanyName))
+            {
+                return $"**** Företagsnamn {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.OrgNumber))
+            {
+                return $"**** Organisationsnummer {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.Address))
+            {
+                return $"**** Adress {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.PostalCode))
+            {
+                return $"**** Postnummer {creationDenied} ****";
+            }
+            else if (string.IsNullOrWhiteSpace(customer.Region))
+            {
+                return $"**** Postort {creationDenied} ****";
+            }
+
+            customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }
-        public void DeleteCustomer(int customerNumber)
+        public string DeleteCustomer(int customerNumber)
         {
-            _customerManager.DeleteCustomer(customerNumber);
+            var result = _customerManager.DeleteCustomer(customerNumber);
+            if (result == 2)
+            {
+                return "**** Kunden har konton, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****";
+            }
+            else if (result == 1)
+            {
+                return "**** Ingen kund med det kundnummret hittades. Tryck [Enter] för att fortsätta. ****";
+            }
+            return "**** Kunden har raderats. Tryck [Enter] för att fortsätta. ****";
         }
         public Account CreateAccount(Account account)
         {

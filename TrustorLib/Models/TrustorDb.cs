@@ -12,7 +12,6 @@ namespace TrustorLib.Models
     public class TrustorDb : ITrustorDb
     {
         private readonly string _filePath;
-        private bool _loaded;
 
         public List<Customer> Customers;
         public List<Account> Accounts;

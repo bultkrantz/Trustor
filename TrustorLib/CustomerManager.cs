@@ -56,5 +56,10 @@ namespace TrustorLib
 
             return Tuple.Create(customer, account);
         }
+
+        public int CreateNewCustomerNumber()
+        {
+            return _context.Customers.Max(x => x.CustomerNumber) + 1;
+        }
     }
 }

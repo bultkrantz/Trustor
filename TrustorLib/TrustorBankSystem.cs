@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using TrustorLib.HelperMethods;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
 
@@ -98,7 +96,7 @@ namespace TrustorLib
                 return $"**** Postort {creationDenied} ****";
             }
 
-            customer.CustomerNumber = GenerateUniqueNumbers.GenerateCustomerNumber(_customerManager.SearchCustomer("").Max(x => x.CustomerNumber));
+            customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }

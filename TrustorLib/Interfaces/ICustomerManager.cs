@@ -11,5 +11,6 @@ namespace TrustorLib.Interfaces
         Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber);
         Customer CreateCustomer(Customer customer);
         int DeleteCustomer(int customerNumber);
+        int CreateNewCustomerNumber();
     }
 }

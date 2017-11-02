@@ -10,13 +10,14 @@ namespace TrustorLib
 {
     public class CustomerManager : ICustomerManager
     {
-        private TrustorDb _context;
+        private readonly TrustorDb _context;
 
-        public CustomerManager()
+        public CustomerManager(TrustorDb context)
         {
-            string fileName = "bankdata.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
-            _context = new TrustorDb(path);
+            _context = context;
+            //string fileName = "bankdata.txt";
+            //string path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            //_context = new TrustorDb(path);
         }
         public Customer CreateCustomer(Customer customer)
         {

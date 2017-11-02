@@ -66,7 +66,7 @@ namespace TrustorLib
                 return $"**** Postort {creationDenied} ****";
             }
 
-
+            customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }

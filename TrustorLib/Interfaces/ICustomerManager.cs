@@ -11,5 +11,6 @@ namespace TrustorLib.Interfaces
         Customer ShowCustomerInfo(int customerNumber);
         Customer CreateCustomer(Customer customer);
         void DeleteCustomer(int customerNumber);
+        int CreateNewCustomerNumber();
     }
 }

@@ -38,5 +38,10 @@ namespace TrustorLib
         {
             throw new NotImplementedException();
         }
+
+        public int CreateNewCustomerNumber()
+        {
+            return _context.Customers.Max(x => x.CustomerNumber) + 1;
+        }
     }
 }

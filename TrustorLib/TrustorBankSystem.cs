@@ -17,9 +17,9 @@ namespace TrustorLib
             _customerManager = customerManager;
         }
 
-        public TrustorBankSystem()
+        public TrustorBankSystem(ICustomerManager customerManager)
         {
-
+            _customerManager = customerManager;
         }
 
         public List<Customer> SearchCustomer(string search)
@@ -30,9 +30,10 @@ namespace TrustorLib
         {
             return _customerManager.ShowCustomerInfo(customerNumber);
         }
-        public Customer CreateCustomer(Customer customer)
+        public string CreateCustomer(Customer customer)
         {
-            return _customerManager.CreateCustomer(customer);
+            var newCustomer = _customerManager.CreateCustomer(customer);
+            return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }
         public void DeleteCustomer(int customerNumber)
         {

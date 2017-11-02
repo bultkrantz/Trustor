@@ -7,7 +7,7 @@ using TrustorLib.Models;
 
 namespace TrustorLib
 {
-    class CustomerManager : ICustomerManager
+    public class CustomerManager : ICustomerManager
     {
         private TrustorDb _context;
 
@@ -19,7 +19,8 @@ namespace TrustorLib
         }
         public Customer CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customers.Add(customer);
+            return customer;
         }
 
         public void DeleteCustomer(int customerNumber)

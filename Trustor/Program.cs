@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using TrustorLib;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -41,8 +42,12 @@ namespace Trustor
                 do
                 {
                     Console.Clear();
+                    var customerCount = trustorDb.Customers.Count.ToString();
+                    var accountCount = trustorDb.Accounts.Count.ToString();
+                    var totalBalance = trustorDb.Accounts.Sum(x => x.Balance).ToString();
                     Console.WriteLine(Menu.WelcomeText);
                     Console.WriteLine(Menu.Logo);
+                    Console.WriteLine(Menu.BankStatistics(customerCount, accountCount, totalBalance));
 
                     for (var i = 0; i < menuItems.Length; i++)
                     {

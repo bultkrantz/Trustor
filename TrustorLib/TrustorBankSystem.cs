@@ -49,7 +49,9 @@ namespace TrustorLib
 
         public string ShowCustomerInfo(int customerNumber)
         {
-            var customer = _customerManager.ShowCustomerInfo(customerNumber);
+            var customerInfo = _customerManager.ShowCustomerInfo(customerNumber);
+            var customer = customerInfo.Item1;
+            var accounts = customerInfo.Item2;
             var stringBuilder = new StringBuilder();
 
             if (customer != null)
@@ -58,6 +60,12 @@ namespace TrustorLib
                 stringBuilder.AppendLine($"Organisationsnummer: {customer.OrgNumber}");
                 stringBuilder.AppendLine($"Namn: {customer.CompanyName}");
                 stringBuilder.AppendLine($"Address: {customer.Address}");
+                stringBuilder.AppendLine("\n\nKonton:\n");
+
+                foreach (var account in accounts)
+                {
+                    stringBuilder.AppendLine($"{account.AccountNumber}: {account.Balance} kr");
+                }
             }
             else
             {

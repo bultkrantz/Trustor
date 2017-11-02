@@ -51,9 +51,12 @@ namespace TrustorLib
             return _context.Customers.Where(e => e.CompanyName.Contains(search) || e.City.Contains(search)).ToList();
         }
 
-        public Customer ShowCustomerInfo(int customerNumber)
+        public Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber)
         {
-            return _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
+            var customer = _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
+            var account = _context.Accounts.Where(x => customer != null && x.CustomerNumber == customer.CustomerNumber).ToList();
+
+            return Tuple.Create(customer, account);
         }
 
         public int CreateNewCustomerNumber()

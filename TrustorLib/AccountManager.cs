@@ -40,9 +40,23 @@ namespace TrustorLib
             throw new NotImplementedException();
         }
 
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public decimal NewWithdrawal(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+
+            if (account == null)
+            {
+                throw new NullReferenceException($"Konto {accountNumber} finns inte");
+            }
+
+            if (account.Balance < amount)
+            {
+                throw new ArgumentOutOfRangeException($"Saldot på kontot är lägre än {amount}");
+            }
+
+            account.Balance -= amount;
+
+            return account.Balance;
         }
 
         public int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)

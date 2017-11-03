@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -61,6 +62,8 @@ namespace TrustorLib
                 {
                     stringBuilder.AppendLine($"{account.AccountNumber}: {account.Balance} kr");
                 }
+
+                stringBuilder.AppendLine($"\nTotala tillgångar: {accounts.Sum(x => x.Balance)} kr");
             }
             else
             {
@@ -133,9 +136,20 @@ namespace TrustorLib
         {
             _accountManager.NewDeposit(accountNumber, amount);
         }
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public string NewWithdrawal(int accountNumber, decimal amount)
         {
-            _accountManager.NewWithdrawal(accountNumber, amount);
+            decimal result = 0;
+
+            try
+            {
+                result = _accountManager.NewWithdrawal(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+            return $"Saldo kvar på konto {accountNumber} är {result}. Du tog ut {amount}";
         }
         public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {

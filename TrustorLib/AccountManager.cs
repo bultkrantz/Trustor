@@ -16,9 +16,18 @@ namespace TrustorLib
             _context = context;
         }
 
-        public Account CreateAccount(Account account)
+        public Account CreateAccount(int customerNumber)
         {
-            throw new NotImplementedException();
+            var account = new Account
+            {
+                CustomerNumber = customerNumber,
+                AccountNumber = CreateNewAccountNumber(),
+                Balance = 0
+            };
+
+            _context.Accounts.Add(account);
+
+            return account;
         }
 
         public void DeleteAccount(int accountNumber)
@@ -57,6 +66,11 @@ namespace TrustorLib
             fromAccount.Balance -= amount;
             toAccount.Balance += amount;
             return 4;
+        }
+
+        public int CreateNewAccountNumber()
+        {
+            return _context.Accounts.Max(x => x.AccountNumber) + 1;
         }
     }
 }

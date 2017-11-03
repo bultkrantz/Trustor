@@ -113,9 +113,10 @@ namespace TrustorLib
             }
             return "**** Kunden har raderats. Tryck [Enter] för att fortsätta. ****";
         }
-        public Account CreateAccount(Account account)
+        public string CreateAccount(int customerNumber)
         {
-            return _accountManager.CreateAccount(account);
+            var account = _accountManager.CreateAccount(customerNumber);
+            return $"\nNytt konto med nummer {account.AccountNumber} har skapats.\n\n**** Tryck [Enter] för att fortsätta. ****";
         }
         public void DeleteAccount(int accountNumber)
         {

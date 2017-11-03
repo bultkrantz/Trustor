@@ -22,5 +22,9 @@ namespace TrustorLib.Models
 
         public static string Logo =>
             "   __                         __                 ___.                  __    \r\n_/  |________ __ __  _______/  |_  ___________  \\_ |__ _____    ____ |  | __\r\n\\   __\\_  __ \\  |  \\/  ___/\\   __\\/  _ \\_  __ \\  | __ \\\\__  \\  /    \\|  |/ /\r\n |  |  |  | \\/  |  /\\___ \\  |  | (  <_> )  | \\/  | \\_\\ \\/ __ \\|   |  \\    < \r\n |__|  |__|  |____//____  > |__|  \\____/|__|     |___  (____  /___|  /__|_ \\\r\n                        \\/                           \\/     \\/     \\/     \\/\r\n\r\n";
+        public static string BankStatistics(string customerCount, string accountCount, string totalBalance)
+        {
+            return $"    ---------------\n   Antal kunder: {customerCount} \n   Antal konton: {accountCount} \n   Totalt saldo: {totalBalance} \n    ---------------";
+        }
     }
 }

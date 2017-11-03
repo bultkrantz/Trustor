@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -61,6 +62,8 @@ namespace TrustorLib
                 {
                     stringBuilder.AppendLine($"{account.AccountNumber}: {account.Balance} kr");
                 }
+
+                stringBuilder.AppendLine($"\nTotala tillgångar: {accounts.Sum(x => x.Balance)} kr");
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TrustorLib.Interfaces;
 using TrustorLib.Models;
@@ -35,9 +36,27 @@ namespace TrustorLib
             throw new NotImplementedException();
         }
 
-        public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
+        public int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var accounts = _context.Accounts;
+            var fromAccount = accounts.FirstOrDefault(x => x.AccountNumber == fromAccountNumber);
+            var toAccount = accounts.FirstOrDefault(x => x.AccountNumber == toAccountNumber);
+            if (fromAccount == null)
+            {
+                return 1;
+            }
+            else if (toAccount == null)
+            {
+                return 2;
+            }
+            else if (fromAccount.Balance < amount)
+            {
+                return 3;
+            }
+
+            fromAccount.Balance -= amount;
+            toAccount.Balance += amount;
+            return 4;
         }
     }
 }

@@ -127,7 +127,16 @@ namespace TrustorLib
         }
         public string NewWithdrawal(int accountNumber, decimal amount)
         {
-            var result = _accountManager.NewWithdrawal(accountNumber, amount);
+            decimal result = 0;
+
+            try
+            {
+                result = _accountManager.NewWithdrawal(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
 
             return $"Saldo kvar på konto {accountNumber} är {result}. Du tog ut {amount}";
         }

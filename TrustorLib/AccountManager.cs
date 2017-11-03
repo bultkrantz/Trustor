@@ -37,12 +37,12 @@ namespace TrustorLib
 
             if (account == null)
             {
-                throw new NullReferenceException($"Account {accountNumber} does not exist");
+                throw new NullReferenceException($"Konto {accountNumber} finns inte");
             }
 
             if (account.Balance < amount)
             {
-                throw new ArgumentOutOfRangeException($"Not enough money on account {accountNumber}");
+                throw new ArgumentOutOfRangeException($"Saldot på kontot är lägre än {amount}");
             }
 
             account.Balance -= amount;

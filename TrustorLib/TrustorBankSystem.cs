@@ -125,9 +125,11 @@ namespace TrustorLib
         {
             _accountManager.NewDeposit(accountNumber, amount);
         }
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public string NewWithdrawal(int accountNumber, decimal amount)
         {
-            _accountManager.NewWithdrawal(accountNumber, amount);
+            var result = _accountManager.NewWithdrawal(accountNumber, amount);
+
+            return $"Saldo kvar på konto {accountNumber} är {result}. Du tog ut {amount}";
         }
         public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {

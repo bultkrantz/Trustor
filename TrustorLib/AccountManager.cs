@@ -31,9 +31,23 @@ namespace TrustorLib
             throw new NotImplementedException();
         }
 
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public decimal NewWithdrawal(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+
+            if (account == null)
+            {
+                throw new NullReferenceException($"Account {accountNumber} does not exist");
+            }
+
+            if (account.Balance < amount)
+            {
+                throw new ArgumentOutOfRangeException($"Not enough money on account {accountNumber}");
+            }
+
+            account.Balance -= amount;
+
+            return account.Balance;
         }
 
         public int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)

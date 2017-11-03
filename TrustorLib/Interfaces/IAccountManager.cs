@@ -7,7 +7,7 @@ namespace TrustorLib.Interfaces
         Account CreateAccount(Account account);
         void DeleteAccount(int accountNumber);
         void NewDeposit(int accountNumber, decimal amount);
-        void NewWithdrawal(int accountNumber, decimal amount);
+        decimal NewWithdrawal(int accountNumber, decimal amount);
         int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount);
     }
 }

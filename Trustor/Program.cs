@@ -11,8 +11,20 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
-            var fileName = "bankdata.txt";
+            var fileName = "";
+            if (args.Length > 0 && File.Exists(args[0])) // Skall användas vid live release
+            {
+                fileName = args[0];
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
+
+            fileName = "bankdata.txt"; // TODO Ta bort vid live-release. Ska ej vara hårdkodad.
             var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            //var path = fileName; // Live kod.
+
             var trustorDb = new TrustorDb(path);
 
             var system = new TrustorBankSystem(new CustomerManager(trustorDb), new AccountManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara

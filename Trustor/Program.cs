@@ -163,6 +163,7 @@ namespace Trustor
                         if (!customerInput || customerNumber.ToString().Length > 4)
                         {
                             Console.WriteLine("**** Du har ej angett ett korrekt kundnummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadKey();
                         }
                         else
                         {

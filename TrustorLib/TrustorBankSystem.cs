@@ -12,14 +12,9 @@ namespace TrustorLib
         private IAccountManager _accountManager;
         private ICustomerManager _customerManager;
 
-        public TrustorBankSystem(IAccountManager accountManager, ICustomerManager customerManager)
+        public TrustorBankSystem(ICustomerManager customerManager, IAccountManager accountManager)
         {
             _accountManager = accountManager;
-            _customerManager = customerManager;
-        }
-
-        public TrustorBankSystem(ICustomerManager customerManager)
-        {
             _customerManager = customerManager;
         }
 
@@ -137,9 +132,22 @@ namespace TrustorLib
         {
             _accountManager.NewWithdrawal(accountNumber, amount);
         }
-        public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
+        public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
+            var result = _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
+            if (result == 1)
+            {
+                return $"Konto med kontonummer {fromAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
+            }
+            else if (result == 2)
+            {
+                return $"Konto med kontonummer {toAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
+            }
+            else if (result == 3)
+            {
+                return $"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.";
+            }
+            return $"**** {amount}kr överfört från konto {fromAccountNumber} till konto {toAccountNumber}. Tryck [Enter] för att fortsätta. ****";
         }
     }
 }

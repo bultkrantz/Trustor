@@ -100,19 +100,19 @@ namespace TrustorLib
             }
 
             customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
+            _accountManager.CreateAccount(customer.CustomerNumber);
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }
         public string DeleteCustomer(int customerNumber)
         {
-            var result = _customerManager.DeleteCustomer(customerNumber);
-            if (result == 2)
+            try
             {
-                return "**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****";
+                _customerManager.DeleteCustomer(customerNumber);
             }
-            else if (result == 1)
+            catch (Exception e)
             {
-                return "**** Ingen kund med det kundnummret hittades. Tryck [Enter] för att fortsätta. ****";
+                return e.Message;
             }
             return "**** Kunden har raderats. Tryck [Enter] för att fortsätta. ****";
         }

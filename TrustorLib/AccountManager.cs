@@ -72,9 +72,13 @@ namespace TrustorLib
             {
                 throw new NullReferenceException($"Konto med kontonummer { toAccountNumber } hittades inte. Tryck [Enter] för att fortsätta.");
             }
+            else if (amount < 1)
+            {
+                throw new Exception($"Beloppet att föra över får ej vara lika med eller mindre än 1kr, du försökte föra över {amount}kr. Tryck [Enter] för att fortsätta.");
+            }
             else if (fromAccount.Balance < amount)
             {
-                throw new ArgumentOutOfRangeException($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
+                throw new Exception($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
             }
 
             fromAccount.Balance -= amount;

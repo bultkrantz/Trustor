@@ -74,7 +74,7 @@ namespace TrustorLib
             }
             else if (amount < 1)
             {
-                throw new Exception($"Beloppet att föra över får ej vara ett negativt tal eller vara mindre än 1kr, du försökte föra över {amount}kr. Tryck [Enter] för att fortsätta.");
+                throw new Exception($"Beloppet att föra över får ej vara lika med eller mindre än 1kr, du försökte föra över {amount}kr. Tryck [Enter] för att fortsätta.");
             }
             else if (fromAccount.Balance < amount)
             {

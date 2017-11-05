@@ -153,18 +153,13 @@ namespace TrustorLib
         }
         public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            var result = _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
-            if (result == 1)
+            try
             {
-                return $"Konto med kontonummer {fromAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
+                _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
             }
-            else if (result == 2)
+            catch (Exception e)
             {
-                return $"Konto med kontonummer {toAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
-            }
-            else if (result == 3)
-            {
-                return $"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.";
+                return e.Message;
             }
             return $"**** {amount}kr överfört från konto {fromAccountNumber} till konto {toAccountNumber}. Tryck [Enter] för att fortsätta. ****";
         }

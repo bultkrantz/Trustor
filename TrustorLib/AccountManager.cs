@@ -59,27 +59,26 @@ namespace TrustorLib
             return account.Balance;
         }
 
-        public int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
+        public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
             var accounts = _context.Accounts;
             var fromAccount = accounts.FirstOrDefault(x => x.AccountNumber == fromAccountNumber);
             var toAccount = accounts.FirstOrDefault(x => x.AccountNumber == toAccountNumber);
             if (fromAccount == null)
             {
-                return 1;
+                throw new NullReferenceException($"Konto med kontonummer {fromAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.");
             }
             else if (toAccount == null)
             {
-                return 2;
+                throw new NullReferenceException($"Konto med kontonummer { toAccountNumber } hittades inte. Tryck [Enter] för att fortsätta.");
             }
             else if (fromAccount.Balance < amount)
             {
-                return 3;
+                throw new ArgumentOutOfRangeException($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
             }
 
             fromAccount.Balance -= amount;
             toAccount.Balance += amount;
-            return 4;
         }
 
         public int CreateNewAccountNumber()

@@ -35,7 +35,7 @@ namespace TrustorLib
             {
                 if (account.Balance > 0)
                 {
-                    throw new ArgumentOutOfRangeException("**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****");
+                    throw new Exception("**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****");
                 }
                 _context.Accounts.Remove(account);
             }

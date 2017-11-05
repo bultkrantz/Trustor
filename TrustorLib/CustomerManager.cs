@@ -23,25 +23,24 @@ namespace TrustorLib
             return customer;
         }
 
-        public int DeleteCustomer(int customerNumber)
+        public void DeleteCustomer(int customerNumber)
         {
             var customerToRemove = _context.Customers.FirstOrDefault(x => x.CustomerNumber == customerNumber);
             if (customerToRemove == null)
             {
-                return 1;
+                throw new NullReferenceException("**** Ingen kund med det kundnummret hittades.Tryck [Enter] för att fortsätta. ****");
             }
             var customerAccounts = _context.Accounts.Where(x => x.CustomerNumber == customerNumber).ToList();
             foreach (var account in customerAccounts)
             {
                 if (account.Balance > 0)
                 {
-                    return 2;
+                    throw new ArgumentOutOfRangeException("**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****");
                 }
                 _context.Accounts.Remove(account);
             }
             _context.Customers.Remove(customerToRemove);
             _context.SaveChanges();
-            return 3;
         }
 
         public List<Customer> SearchCustomer(string search)

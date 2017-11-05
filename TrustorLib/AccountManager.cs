@@ -16,9 +16,18 @@ namespace TrustorLib
             _context = context;
         }
 
-        public Account CreateAccount(Account account)
+        public Account CreateAccount(int customerNumber)
         {
-            throw new NotImplementedException();
+            var account = new Account
+            {
+                CustomerNumber = customerNumber,
+                AccountNumber = CreateNewAccountNumber(),
+                Balance = 0
+            };
+
+            _context.Accounts.Add(account);
+
+            return account;
         }
 
         public void DeleteAccount(int accountNumber)
@@ -31,32 +40,50 @@ namespace TrustorLib
             throw new NotImplementedException();
         }
 
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public decimal NewWithdrawal(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+
+            if (account == null)
+            {
+                throw new NullReferenceException($"Konto {accountNumber} finns inte");
+            }
+
+            if (account.Balance < amount)
+            {
+                throw new ArgumentOutOfRangeException($"Saldot på kontot är lägre än {amount}");
+            }
+
+            account.Balance -= amount;
+
+            return account.Balance;
         }
 
-        public int NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
+        public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
             var accounts = _context.Accounts;
             var fromAccount = accounts.FirstOrDefault(x => x.AccountNumber == fromAccountNumber);
             var toAccount = accounts.FirstOrDefault(x => x.AccountNumber == toAccountNumber);
             if (fromAccount == null)
             {
-                return 1;
+                throw new NullReferenceException($"Konto med kontonummer {fromAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.");
             }
             else if (toAccount == null)
             {
-                return 2;
+                throw new NullReferenceException($"Konto med kontonummer { toAccountNumber } hittades inte. Tryck [Enter] för att fortsätta.");
             }
             else if (fromAccount.Balance < amount)
             {
-                return 3;
+                throw new ArgumentOutOfRangeException($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
             }
 
             fromAccount.Balance -= amount;
             toAccount.Balance += amount;
-            return 4;
+        }
+
+        public int CreateNewAccountNumber()
+        {
+            return _context.Accounts.Max(x => x.AccountNumber) + 1;
         }
     }
 }

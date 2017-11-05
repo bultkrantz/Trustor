@@ -157,7 +157,20 @@ namespace Trustor
                         Console.ReadLine();
                         break;
                     case 5:
-                        Console.WriteLine("\n Skapa konto skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\nSkriv in kundnummer för att skapa nytt konto");
+                        var customerInput = int.TryParse(Console.ReadLine(), out customerNumber);
+                        if (!customerInput || customerNumber.ToString().Length > 4)
+                        {
+                            Console.WriteLine("**** Du har ej angett ett korrekt kundnummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine(system.CreateAccount(customerNumber));
+                            Console.ReadKey();
+                        }
                         break;
                     case 6:
                         Console.WriteLine("\n Ta bort konto skall köras");

@@ -115,9 +115,17 @@ namespace TrustorLib
             }
             return "**** Kunden har raderats. Tryck [Enter] för att fortsätta. ****";
         }
-        public Account CreateAccount(Account account)
+        public string CreateAccount(int customerNumber)
         {
-            return _accountManager.CreateAccount(account);
+            var customer = _customerManager.ShowCustomerInfo(customerNumber);
+
+            if (customer.Item1 != null)
+            {
+                var account = _accountManager.CreateAccount(customerNumber);
+                return $"\nNytt konto med nummer {account.AccountNumber} har skapats.\n\n**** Tryck [Enter] för att fortsätta. ****";
+            }
+
+            return "Kunden kunde inte hittas.\n\n**** Tryck [Enter] för att fortsätta. ****";
         }
         public void DeleteAccount(int accountNumber)
         {
@@ -127,24 +135,30 @@ namespace TrustorLib
         {
             _accountManager.NewDeposit(accountNumber, amount);
         }
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public string NewWithdrawal(int accountNumber, decimal amount)
         {
-            _accountManager.NewWithdrawal(accountNumber, amount);
+            decimal result = 0;
+
+            try
+            {
+                result = _accountManager.NewWithdrawal(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+            return $"Saldo kvar på konto {accountNumber} är {result}. Du tog ut {amount}";
         }
         public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            var result = _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
-            if (result == 1)
+            try
             {
-                return $"Konto med kontonummer {fromAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
+                _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
             }
-            else if (result == 2)
+            catch (Exception e)
             {
-                return $"Konto med kontonummer {toAccountNumber} hittades inte. Tryck [Enter] för att fortsätta.";
-            }
-            else if (result == 3)
-            {
-                return $"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.";
+                return e.Message;
             }
             return $"**** {amount}kr överfört från konto {fromAccountNumber} till konto {toAccountNumber}. Tryck [Enter] för att fortsätta. ****";
         }

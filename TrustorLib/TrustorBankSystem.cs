@@ -100,6 +100,7 @@ namespace TrustorLib
             }
 
             customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
+            _accountManager.CreateAccount(customer.CustomerNumber);
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }

@@ -32,12 +32,20 @@ namespace TrustorLib
 
         public void DeleteAccount(int accountNumber)
         {
-            throw new NotImplementedException();
+            _context.Accounts.RemoveAll(x => x.AccountNumber == accountNumber);
         }
 
         public void NewDeposit(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+
+            if (account == null || amount < 0)
+            {
+                return;
+            }
+
+            account.Balance += amount;
+
         }
 
         public decimal NewWithdrawal(int accountNumber, decimal amount)
@@ -52,6 +60,11 @@ namespace TrustorLib
             if (account.Balance < amount)
             {
                 throw new ArgumentOutOfRangeException($"Saldot på kontot är lägre än {amount}");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException($"Inte ens möjligt.");   
             }
 
             account.Balance -= amount;

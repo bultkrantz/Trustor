@@ -104,6 +104,7 @@ namespace Trustor
                         Environment.Exit(0);
                         break;
                     case 1:
+                        Console.Clear();
                         Console.WriteLine("\n Sök efter kund:");
                         var search = Console.ReadLine();
                         var answer = system.SearchCustomer(search);
@@ -112,6 +113,7 @@ namespace Trustor
                         Console.ReadKey();
                         break;
                     case 2:
+                        Console.Clear();
                         Console.WriteLine("\n Visa info från kund:");
 
                         var customerNumberInput = Console.ReadLine();
@@ -126,6 +128,7 @@ namespace Trustor
 
                         break;
                     case 3:
+                        Console.Clear();
                         var newCustomer = new Customer();
                         Console.WriteLine("\n Skriv in företagsnamn (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.CompanyName = Console.ReadLine();
@@ -148,6 +151,7 @@ namespace Trustor
                         Console.ReadLine();
                         break;
                     case 4:
+                        Console.Clear();
                         Console.WriteLine("\n Mata in kundnummer: ");
                         int customerNumber;
                         var result = int.TryParse(Console.ReadLine(), out customerNumber);
@@ -201,6 +205,7 @@ namespace Trustor
                         Console.WriteLine("\n Insättning skall köras");
                         break;
                     case 8:
+                        Console.Clear();
                         int withdrawalAccountNumber;
                         decimal withdrawalAmount;
 
@@ -229,6 +234,7 @@ namespace Trustor
 
                         break;
                     case 9:
+                        Console.Clear();
                         int fromAccountNumber;
                         int toAccountNumber;
                         decimal amount;
@@ -253,6 +259,7 @@ namespace Trustor
                             Console.ReadLine();
                             break;
                         }
+                        Console.Clear();
                         Console.WriteLine("\n Mata in summa: ");
                         var isDecimal = decimal.TryParse(Console.ReadLine(), out amount);
                         if (!isDecimal)
@@ -268,6 +275,7 @@ namespace Trustor
                         Console.ReadLine();
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("\n**** Ogiltigt kommando. Tryck [Enter] för att fortsätta ****");
                         Console.ReadLine();
                         break;

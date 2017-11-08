@@ -140,9 +140,17 @@ namespace TrustorLib
             }
             return "**** Kontot har raderats. Tryck [Enter] för att fortsätta. ****";
         }
-        public void NewDeposit(int accountNumber, decimal amount)
+        public string NewDeposit(int accountNumber, decimal amount)
         {
-            _accountManager.NewDeposit(accountNumber, amount);
+            try
+            {
+                _accountManager.NewDeposit(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return $"\nDu har satt in {amount} kr på konto: {accountNumber}";
         }
         public string NewWithdrawal(int accountNumber, decimal amount)
         {

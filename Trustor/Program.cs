@@ -97,6 +97,10 @@ namespace Trustor
                 switch (currentItem)
                 {
                     case 0:
+                        Console.Clear();
+                        Console.WriteLine("Sparar och avslutar...");
+                        Console.ReadKey();
+                        trustorDb.SaveChanges();
                         Environment.Exit(0);
                         break;
                     case 1:

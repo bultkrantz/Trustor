@@ -19,7 +19,6 @@ namespace TrustorLib
         public Customer CreateCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
-            _context.SaveChanges();
             return customer;
         }
 
@@ -40,7 +39,6 @@ namespace TrustorLib
                 _context.Accounts.Remove(account);
             }
             _context.Customers.Remove(customerToRemove);
-            _context.SaveChanges();
         }
 
         public List<Customer> SearchCustomer(string search)

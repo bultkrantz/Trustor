@@ -12,10 +12,13 @@ namespace XUnitTest
     public class TrustorDbTests
     {
         private readonly TrustorDb _context;
+
         public TrustorDbTests()
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "../../../bankdata-small.txt");
-            _context = new TrustorDb(path);
+            //var path = Path.Combine(Environment.CurrentDirectory, "../../../bankdata-small.txt");
+            //_context = new TrustorDb(path);
+            _context = new TrustorDb(Path.Combine(Environment.CurrentDirectory, @"Database\", "bankdata-small.txt"));
+
         }
 
         [Fact]

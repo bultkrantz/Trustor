@@ -21,11 +21,12 @@ namespace XUnitTest
         [Fact]
         public void Delete_Account_Test()
         {
-            var accountToRemove = _context.Accounts.FirstOrDefault();
+
+            var accountToRemove = _accountManager.CreateAccount(99);
 
             _accountManager.DeleteAccount(accountToRemove.AccountNumber);
 
-            Assert.DoesNotContain(accountToRemove,_context.Accounts);
+            Assert.DoesNotContain(accountToRemove, _context.Accounts);
         }
 
         [Fact]
@@ -54,6 +55,18 @@ namespace XUnitTest
             _accountManager.NewWithdrawal(account.AccountNumber, cashToWithdrawl);
 
             Assert.Equal(expectedBalance,account.Balance);
+        }
+
+        [Fact]
+        public void New_Deposit_Test()
+        {
+            var account = _context.Accounts.FirstOrDefault();
+        
+            _accountManager.NewDeposit(account.AccountNumber, 100);
+
+            var expectedAmount = account.Balance += 100;
+
+            Assert.Equal(account.Balance, expectedAmount);
         }
     }
 }

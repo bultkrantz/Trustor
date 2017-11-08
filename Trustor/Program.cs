@@ -199,10 +199,25 @@ namespace Trustor
                         }
                         Console.Clear();
                         Console.WriteLine(system.DeleteAccount(removeAccountNumber));
-                        Console.ReadLine();
+                        Console.ReadKey();
                         break;
                     case 7:
-                        Console.WriteLine("\n Insättning skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\nMata in kontonummer för insättning: ");
+                        var newDepositAccountResult = int.TryParse(Console.ReadLine(), out var newDepositAccount);
+
+                        if (!newDepositAccountResult || newDepositAccount.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine("Mata in hur mycket du vill sätta in:");
+                        int.TryParse(Console.ReadLine(), out var newDepositAmount);
+                        Console.WriteLine(system.NewDeposit(newDepositAccount, newDepositAmount));
+                        Console.ReadKey();
                         break;
                     case 8:
                         Console.Clear();
@@ -248,7 +263,7 @@ namespace Trustor
                             Console.ReadLine();
                             break;
                         }
-                      
+
                         Console.WriteLine("\n Mata in konto pengarna skall sättas in på: ");
                         var validToNumber = int.TryParse(Console.ReadLine(), out toAccountNumber);
                         if (!validToNumber || toAccountNumber.ToString().Length != 5)

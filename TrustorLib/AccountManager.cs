@@ -53,9 +53,13 @@ namespace TrustorLib
         {
             var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
 
-            if (account == null || amount < 0)
+            if (account == null)
             {
-                return;
+                throw new Exception($"Inget konto med kontonummer {accountNumber} hittades. Tryck [Enter] för att fortsätta.");
+            }
+            if (amount <= 0)
+            {
+                throw new Exception($"Du försöker sätta in {amount} kr. Tryck [Enter] för att fortsätta.");
             }
 
             account.Balance += amount;

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TrustorLib\TrustorLib.csproj" />
     <ProjectReference Include="..\Trustor\Trustor.csproj" />
   </ItemGroup>
 

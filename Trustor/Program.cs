@@ -11,6 +11,9 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
             var fileName = "";
             if (args.Length > 0 && File.Exists(args[0])) // Skall användas vid live release
             {

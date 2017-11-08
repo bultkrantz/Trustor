@@ -16,7 +16,7 @@ namespace XUnitTest
 
         public CustomerManagerTests()
         {
-            _context = new TrustorDb(Path.Combine(Environment.CurrentDirectory, @"Database\", "bankdata-small.txt"));
+            _context = new TrustorDb(Path.Combine(Environment.CurrentDirectory, @"Database\", "bankdata.txt"));
             _sut = new CustomerManager(_context);
         }
 

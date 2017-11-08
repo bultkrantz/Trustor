@@ -22,9 +22,9 @@ namespace Trustor
             }
 
             fileName = "bankdata.txt"; // TODO Ta bort vid live-release. Ska ej vara hårdkodad.
-            //var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
             //var path = fileName; // Live kod.
-            var path = @"C:\Users\matti\Desktop\bankdata.txt";
+           // var path = @"C:\Users\matti\Desktop\bankdata.txt";
             var trustorDb = new TrustorDb(path);
 
             var system = new TrustorBankSystem(new CustomerManager(trustorDb), new AccountManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara

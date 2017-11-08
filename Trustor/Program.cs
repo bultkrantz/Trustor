@@ -11,6 +11,9 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
             var fileName = "";
             if (args.Length > 0 && File.Exists(args[0])) // Skall användas vid live release
             {
@@ -94,6 +97,10 @@ namespace Trustor
                 switch (currentItem)
                 {
                     case 0:
+                        Console.Clear();
+                        Console.WriteLine("Sparar och avslutar...");
+                        Console.ReadKey();
+                        trustorDb.SaveChanges();
                         Environment.Exit(0);
                         break;
                     case 1:
@@ -179,7 +186,32 @@ namespace Trustor
                         Console.WriteLine("\n Insättning skall köras");
                         break;
                     case 8:
-                        Console.WriteLine("\n Uttag skall köras");
+                        int withdrawalAccountNumber;
+                        decimal withdrawalAmount;
+
+                        Console.WriteLine("\n Mata in kontonummer att dra pengar ifrån: ");
+                        var withdrawalResult = int.TryParse(Console.ReadLine(), out withdrawalAccountNumber);
+                        if (!withdrawalResult || withdrawalAccountNumber.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.WriteLine("\n Mata in summa: ");
+                        var withdrawalIsDecimal = decimal.TryParse(Console.ReadLine(), out withdrawalAmount);
+                        if (!withdrawalIsDecimal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(
+                                "**** Du har ej angett en korrekt summa! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.NewWithdrawal(withdrawalAccountNumber, withdrawalAmount));
+                        Console.ReadLine();
+
                         break;
                     case 9:
                         int fromAccountNumber;
@@ -191,8 +223,7 @@ namespace Trustor
                         if (!validFromNumber || fromAccountNumber.ToString().Length != 5)
                         {
                             Console.Clear();
-                            Console.WriteLine(
-                                "**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
                             Console.ReadLine();
                             break;
                         }

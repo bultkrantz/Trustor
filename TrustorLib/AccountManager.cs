@@ -32,12 +32,20 @@ namespace TrustorLib
 
         public void DeleteAccount(int accountNumber)
         {
-            throw new NotImplementedException();
+            _context.Accounts.RemoveAll(x => x.AccountNumber == accountNumber);
         }
 
         public void NewDeposit(int accountNumber, decimal amount)
         {
-            throw new NotImplementedException();
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+
+            if (account == null || amount < 0)
+            {
+                return;
+            }
+
+            account.Balance += amount;
+
         }
 
         public decimal NewWithdrawal(int accountNumber, decimal amount)
@@ -52,6 +60,11 @@ namespace TrustorLib
             if (account.Balance < amount)
             {
                 throw new ArgumentOutOfRangeException($"Saldot på kontot är lägre än {amount}");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException($"Inte ens möjligt.");   
             }
 
             account.Balance -= amount;
@@ -72,9 +85,13 @@ namespace TrustorLib
             {
                 throw new NullReferenceException($"Konto med kontonummer { toAccountNumber } hittades inte. Tryck [Enter] för att fortsätta.");
             }
+            else if (amount < 1)
+            {
+                throw new Exception($"Beloppet att föra över får ej vara lika med eller mindre än 1kr, du försökte föra över {amount}kr. Tryck [Enter] för att fortsätta.");
+            }
             else if (fromAccount.Balance < amount)
             {
-                throw new ArgumentOutOfRangeException($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
+                throw new Exception($"Saldot på konto med kontonummer {fromAccountNumber} är mindre än {amount}, transaktion avbruten. Tryck [Enter] för att fortsätta.");
             }
 
             fromAccount.Balance -= amount;

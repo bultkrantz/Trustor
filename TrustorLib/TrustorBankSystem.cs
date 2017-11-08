@@ -128,9 +128,17 @@ namespace TrustorLib
 
             return "Kunden kunde inte hittas.\n\n**** Tryck [Enter] för att fortsätta. ****";
         }
-        public void DeleteAccount(int accountNumber)
+        public string DeleteAccount(int accountNumber)
         {
-            _accountManager.DeleteAccount(accountNumber);
+            try
+            {
+                _accountManager.DeleteAccount(accountNumber);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return "**** Kontot har raderats. Tryck [Enter] för att fortsätta. ****";
         }
         public void NewDeposit(int accountNumber, decimal amount)
         {

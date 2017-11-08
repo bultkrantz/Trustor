@@ -180,7 +180,22 @@ namespace Trustor
                         }
                         break;
                     case 6:
-                        Console.WriteLine("\n Ta bort konto skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\n Mata in kontonummer: ");
+
+                        int removeAccountNumber;
+                        var removeAccountNumberResult = int.TryParse(Console.ReadLine(), out removeAccountNumber);
+
+                        if (!removeAccountNumberResult || removeAccountNumber.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.DeleteAccount(removeAccountNumber));
+                        Console.ReadLine();
                         break;
                     case 7:
                         Console.WriteLine("\n Insättning skall köras");

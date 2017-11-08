@@ -32,7 +32,21 @@ namespace TrustorLib
 
         public void DeleteAccount(int accountNumber)
         {
-            _context.Accounts.RemoveAll(x => x.AccountNumber == accountNumber);
+            var account = _context.Accounts.FirstOrDefault(x => x.AccountNumber == accountNumber);
+            var result = _context.Accounts.Remove(account);
+
+            if (account == null)
+            {
+                throw new Exception($"Inget konto med kontonummer {accountNumber} hittades. Tryck [Enter] för att fortsätta.");
+            }
+            else if (!result)
+            {
+                throw new Exception("Kunde ej radera konto.");
+            }
+            else if (account.Balance > 0)
+            {
+                throw new Exception("Konto kunde ej raderas då det innehåller ett saldo större än 0.");
+            }
         }
 
         public void NewDeposit(int accountNumber, decimal amount)
@@ -64,7 +78,7 @@ namespace TrustorLib
 
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException($"Inte ens möjligt.");   
+                throw new ArgumentOutOfRangeException($"Inte ens möjligt.");
             }
 
             account.Balance -= amount;

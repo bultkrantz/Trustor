@@ -33,5 +33,13 @@ namespace XUnitTest
 
             Assert.Equal(expectedOutput,actual);
         }
+
+        [Fact]
+        public void TrustorDb_Loads_Accounts()
+        {
+            var accounts = _context.Accounts;
+
+            Assert.True(accounts.Count > 0);
+        }
     }
 }

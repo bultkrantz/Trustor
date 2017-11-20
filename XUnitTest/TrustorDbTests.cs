@@ -33,16 +33,5 @@ namespace XUnitTest
 
             Assert.Equal(expectedOutput,actual);
         }
-
-        public void TrustorDb_Loads_Accounts()
-        {
-            var accounts = _context.Customers;
-
-            var expectedOutput =
-                "13019;1005;1488.80\r\n13020;1005;613.20\r\n13093;1024;695.62\r\n13128;1032;392.20\r\n13130;1032;4807.00";
-            var actual = string.Join("\r\n", accounts.Select(x => x.ToString()));
-
-            Assert.Equal(expectedOutput, actual);
-        }
     }
 }

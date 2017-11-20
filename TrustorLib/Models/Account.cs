@@ -1,4 +1,6 @@
-﻿namespace TrustorLib.Models
+﻿using System.Globalization;
+
+namespace TrustorLib.Models
 {
     public class Account
     {
@@ -8,7 +10,7 @@
 
         public override string ToString()
         {
-            return AccountNumber + ";" + CustomerNumber + ";" + Balance;
+            return AccountNumber + ";" + CustomerNumber + ";" + Balance.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

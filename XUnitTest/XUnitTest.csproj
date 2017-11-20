@@ -35,4 +35,10 @@
     <ProjectReference Include="..\Trustor\Trustor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database\bankdata.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

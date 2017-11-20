@@ -43,7 +43,7 @@ namespace TrustorLib
 
         public List<Customer> SearchCustomer(string search)
         {
-            return _context.Customers.Where(e => e.CompanyName.ToLower().Contains(search) || e.City.ToLower().Contains(search)).ToList();
+            return _context.Customers.Where(e => e.CompanyName.ToLower().Contains(search.ToLower()) || e.City.ToLower().Contains(search.ToLower())).ToList();
         }
 
         public Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber)

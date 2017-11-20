@@ -218,7 +218,7 @@ namespace Trustor
                         }
                         Console.Clear();
                         Console.WriteLine("Mata in hur mycket du vill sätta in:");
-                        decimal.TryParse(Console.ReadLine(),NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture, out var newDepositAmount);
+                        decimal.TryParse(Console.ReadLine().Replace(",","."),NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture, out var newDepositAmount);
                         Console.WriteLine(system.NewDeposit(newDepositAccount, newDepositAmount));
                         Console.ReadKey();
                         break;

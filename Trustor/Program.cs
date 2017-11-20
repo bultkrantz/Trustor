@@ -237,7 +237,7 @@ namespace Trustor
                             break;
                         }
                         Console.WriteLine("\n Mata in summa: ");
-                        var withdrawalIsDecimal = decimal.TryParse(Console.ReadLine(),NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out withdrawalAmount);
+                        var withdrawalIsDecimal = decimal.TryParse(Console.ReadLine().Replace(",","."),NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out withdrawalAmount);
                         if (!withdrawalIsDecimal)
                         {
                             Console.Clear();
@@ -279,7 +279,7 @@ namespace Trustor
                         }
                         Console.Clear();
                         Console.WriteLine("\n Mata in summa: ");
-                        var isDecimal = decimal.TryParse(Console.ReadLine(),NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture, out amount);
+                        var isDecimal = decimal.TryParse(Console.ReadLine().Replace(",","."),NumberStyles.AllowDecimalPoint,CultureInfo.InvariantCulture, out amount);
                         if (!isDecimal)
                         {
                             Console.Clear();

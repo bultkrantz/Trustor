@@ -36,5 +36,15 @@ namespace XUnitTest
             
             Assert.Equal(Tuple.Create(customer, customerAccounts), _sut.ShowCustomerInfo(1050));
         }
+
+        [Fact]
+        public void Delete_cusutomer_Test()
+        {
+            var customerToDelete = _sut.CreateCustomer(new Customer {CompanyName = "cool"});
+
+            _sut.DeleteCustomer(customerToDelete.CustomerNumber);
+
+            Assert.DoesNotContain(customerToDelete,_context.Customers);
+        }
     }
 }

@@ -22,11 +22,13 @@ namespace Trustor
             else
             {
                 Console.WriteLine("File not found");
+                Console.ReadLine();
+                Environment.Exit(-1);
             }
 
-            fileName = "bankdata.txt"; // TODO Ta bort vid live-release. Ska ej vara hårdkodad.
-            var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
-            //var path = fileName; // Live kod.
+            //fileName = "bankdata.txt"; // TODO Ta bort vid live-release. Ska ej vara hårdkodad.
+            //var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            var path = fileName; // Live kod.
 
             var trustorDb = new TrustorDb(path);
 

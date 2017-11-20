@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trustor", "Trustor\Trustor.csproj", "{642BDBF1-1D42-4BEB-8D73-78D33D3DBDB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trustor", "Trustor\Trustor.csproj", "{642BDBF1-1D42-4BEB-8D73-78D33D3DBDB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{28BFDD2A-86FC-4E92-9377-1C174CA9DF90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrustorLib", "TrustorLib\TrustorLib.csproj", "{5FC0EFB0-9240-4E2D-A872-0ACEFBAA143E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{642BDBF1-1D42-4BEB-8D73-78D33D3DBDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{642BDBF1-1D42-4BEB-8D73-78D33D3DBDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{642BDBF1-1D42-4BEB-8D73-78D33D3DBDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC0EFB0-9240-4E2D-A872-0ACEFBAA143E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC0EFB0-9240-4E2D-A872-0ACEFBAA143E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC0EFB0-9240-4E2D-A872-0ACEFBAA143E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC0EFB0-9240-4E2D-A872-0ACEFBAA143E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BFDD2A-86FC-4E92-9377-1C174CA9DF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BFDD2A-86FC-4E92-9377-1C174CA9DF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BFDD2A-86FC-4E92-9377-1C174CA9DF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BFDD2A-86FC-4E92-9377-1C174CA9DF90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

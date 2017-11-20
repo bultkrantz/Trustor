@@ -102,7 +102,7 @@ namespace TrustorLib
             customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
             _accountManager.CreateAccount(customer.CustomerNumber);
             var newCustomer = _customerManager.CreateCustomer(customer);
-            return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
+            return "**** " + newCustomer.CompanyName + " skapat med kundnummer " + newCustomer.CustomerNumber +" . Tryck [Enter] för att fortsätta. ****";
         }
         public string DeleteCustomer(int customerNumber)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -46,7 +47,7 @@ namespace TrustorLib.Models
                 {
                     AccountNumber = int.Parse(x[0]),
                     CustomerNumber = int.Parse(x[1]),
-                    Balance = decimal.Parse(x[2].Replace('.',','))
+                    Balance = decimal.Parse(x[2],CultureInfo.InvariantCulture)
                 }).ToList();
 
             Customers = customers;

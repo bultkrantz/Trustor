@@ -38,7 +38,7 @@ namespace XUnitTest
         }
 
         [Fact]
-        public void Delete_cusutomer_Test()
+        public void Delete_cusutomer_Test() // Test for deleting a customer
         {
             var customerToDelete = _sut.CreateCustomer(new Customer {CompanyName = "cool"});
 

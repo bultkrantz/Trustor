@@ -33,7 +33,7 @@ namespace XUnitTest
 
             Assert.Equal(expectedOutput,actual);
         }
-
+        [Fact]
         public void TrustorDb_Loads_Accounts()
         {
             var accounts = _context.Customers;

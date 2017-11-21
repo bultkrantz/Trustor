@@ -9,7 +9,7 @@ using TrustorLib.Interfaces;
 
 namespace TrustorLib.Models
 {
-    public class TrustorDb : ITrustorDb
+    public class TrustorDb
     {
         private readonly string _filePath;
 

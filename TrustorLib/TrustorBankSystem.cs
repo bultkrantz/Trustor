@@ -12,14 +12,9 @@ namespace TrustorLib
         private IAccountManager _accountManager;
         private ICustomerManager _customerManager;
 
-        public TrustorBankSystem(IAccountManager accountManager, ICustomerManager customerManager)
+        public TrustorBankSystem(ICustomerManager customerManager, IAccountManager accountManager)
         {
             _accountManager = accountManager;
-            _customerManager = customerManager;
-        }
-
-        public TrustorBankSystem(ICustomerManager customerManager)
-        {
             _customerManager = customerManager;
         }
 
@@ -105,41 +100,84 @@ namespace TrustorLib
             }
 
             customer.CustomerNumber = _customerManager.CreateNewCustomerNumber();
+            _accountManager.CreateAccount(customer.CustomerNumber);
             var newCustomer = _customerManager.CreateCustomer(customer);
             return "**** " + newCustomer.CompanyName + " skapat. Tryck [Enter] för att fortsätta. ****";
         }
         public string DeleteCustomer(int customerNumber)
         {
-            var result = _customerManager.DeleteCustomer(customerNumber);
-            if (result == 2)
+            try
             {
-                return "**** Kunden har konton med ett saldo över 0, och kan därför ej raderas. Tryck [Enter] för att fortsätta. ****";
+                _customerManager.DeleteCustomer(customerNumber);
             }
-            else if (result == 1)
+            catch (Exception e)
             {
-                return "**** Ingen kund med det kundnummret hittades. Tryck [Enter] för att fortsätta. ****";
+                return e.Message;
             }
             return "**** Kunden har raderats. Tryck [Enter] för att fortsätta. ****";
         }
-        public Account CreateAccount(Account account)
+        public string CreateAccount(int customerNumber)
         {
-            return _accountManager.CreateAccount(account);
+            var customer = _customerManager.ShowCustomerInfo(customerNumber);
+
+            if (customer.Item1 != null)
+            {
+                var account = _accountManager.CreateAccount(customerNumber);
+                return $"\nNytt konto med nummer {account.AccountNumber} har skapats.\n\n**** Tryck [Enter] för att fortsätta. ****";
+            }
+
+            return "Kunden kunde inte hittas.\n\n**** Tryck [Enter] för att fortsätta. ****";
         }
-        public void DeleteAccount(int accountNumber)
+        public string DeleteAccount(int accountNumber)
         {
-            _accountManager.DeleteAccount(accountNumber);
+            try
+            {
+                _accountManager.DeleteAccount(accountNumber);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return "**** Kontot har raderats. Tryck [Enter] för att fortsätta. ****";
         }
-        public void NewDeposit(int accountNumber, decimal amount)
+        public string NewDeposit(int accountNumber, decimal amount)
         {
-            _accountManager.NewDeposit(accountNumber, amount);
+            try
+            {
+                _accountManager.NewDeposit(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return $"\nDu har satt in {amount} kr på konto: {accountNumber}";
         }
-        public void NewWithdrawal(int accountNumber, decimal amount)
+        public string NewWithdrawal(int accountNumber, decimal amount)
         {
-            _accountManager.NewWithdrawal(accountNumber, amount);
+            decimal result = 0;
+
+            try
+            {
+                result = _accountManager.NewWithdrawal(accountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+            return $"Saldo kvar på konto {accountNumber} är {result}. Du tog ut {amount}";
         }
-        public void NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
+        public string NewTransfer(int fromAccountNumber, int toAccountNumber, decimal amount)
         {
-            _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
+            try
+            {
+                _accountManager.NewTransfer(fromAccountNumber, toAccountNumber, amount);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+            return $"**** {amount}kr överfört från konto {fromAccountNumber} till konto {toAccountNumber}. Tryck [Enter] för att fortsätta. ****";
         }
     }
 }

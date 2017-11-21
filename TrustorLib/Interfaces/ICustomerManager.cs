@@ -10,7 +10,7 @@ namespace TrustorLib.Interfaces
         List<Customer> SearchCustomer(string search);
         Tuple<Customer, List<Account>> ShowCustomerInfo(int customerNumber);
         Customer CreateCustomer(Customer customer);
-        int DeleteCustomer(int customerNumber);
+        void DeleteCustomer(int customerNumber);
         int CreateNewCustomerNumber();
     }
 }

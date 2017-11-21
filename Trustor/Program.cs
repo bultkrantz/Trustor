@@ -11,11 +11,26 @@ namespace Trustor
     {
         static void Main(string[] args)
         {
-            var fileName = "bankdata.txt";
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            var fileName = "";
+            if (args.Length > 0 && File.Exists(args[0])) // Skall användas vid live release
+            {
+                fileName = args[0];
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
+
+            fileName = "bankdata.txt"; // TODO Ta bort vid live-release. Ska ej vara hårdkodad.
             var path = Path.Combine(Environment.CurrentDirectory, @"Database\", fileName);
+            //var path = fileName; // Live kod.
+
             var trustorDb = new TrustorDb(path);
 
-            var system = new TrustorBankSystem(new CustomerManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
+            var system = new TrustorBankSystem(new CustomerManager(trustorDb), new AccountManager(trustorDb)); //TODO: Skall ta in AccountManager och CustomerManager när klasserna är klara
 
             var input = ConsoleKey.A;
 
@@ -82,9 +97,14 @@ namespace Trustor
                 switch (currentItem)
                 {
                     case 0:
+                        Console.Clear();
+                        Console.WriteLine("Sparar och avslutar...");
+                        Console.ReadKey();
+                        trustorDb.SaveChanges();
                         Environment.Exit(0);
                         break;
                     case 1:
+                        Console.Clear();
                         Console.WriteLine("\n Sök efter kund:");
                         var search = Console.ReadLine();
                         var answer = system.SearchCustomer(search);
@@ -93,6 +113,7 @@ namespace Trustor
                         Console.ReadKey();
                         break;
                     case 2:
+                        Console.Clear();
                         Console.WriteLine("\n Visa info från kund:");
 
                         var customerNumberInput = Console.ReadLine();
@@ -107,6 +128,7 @@ namespace Trustor
 
                         break;
                     case 3:
+                        Console.Clear();
                         var newCustomer = new Customer();
                         Console.WriteLine("\n Skriv in företagsnamn (Obligatoriskt) tryck sedan [Enter] ");
                         newCustomer.CompanyName = Console.ReadLine();
@@ -129,6 +151,7 @@ namespace Trustor
                         Console.ReadLine();
                         break;
                     case 4:
+                        Console.Clear();
                         Console.WriteLine("\n Mata in kundnummer: ");
                         int customerNumber;
                         var result = int.TryParse(Console.ReadLine(), out customerNumber);
@@ -145,21 +168,129 @@ namespace Trustor
                         Console.ReadLine();
                         break;
                     case 5:
-                        Console.WriteLine("\n Skapa konto skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\nSkriv in kundnummer för att skapa nytt konto");
+                        var customerInput = int.TryParse(Console.ReadLine(), out customerNumber);
+                        if (!customerInput || customerNumber.ToString().Length > 4)
+                        {
+                            Console.WriteLine("**** Du har ej angett ett korrekt kundnummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine(system.CreateAccount(customerNumber));
+                            Console.ReadKey();
+                        }
                         break;
                     case 6:
-                        Console.WriteLine("\n Ta bort konto skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\n Mata in kontonummer: ");
+
+                        int removeAccountNumber;
+                        var removeAccountNumberResult = int.TryParse(Console.ReadLine(), out removeAccountNumber);
+
+                        if (!removeAccountNumberResult || removeAccountNumber.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.DeleteAccount(removeAccountNumber));
+                        Console.ReadKey();
                         break;
                     case 7:
-                        Console.WriteLine("\n Insättning skall köras");
+                        Console.Clear();
+                        Console.WriteLine("\nMata in kontonummer för insättning: ");
+                        var newDepositAccountResult = int.TryParse(Console.ReadLine(), out var newDepositAccount);
+
+                        if (!newDepositAccountResult || newDepositAccount.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine("Mata in hur mycket du vill sätta in:");
+                        int.TryParse(Console.ReadLine(), out var newDepositAmount);
+                        Console.WriteLine(system.NewDeposit(newDepositAccount, newDepositAmount));
+                        Console.ReadKey();
                         break;
                     case 8:
-                        Console.WriteLine("\n Uttag skall köras");
+                        Console.Clear();
+                        int withdrawalAccountNumber;
+                        decimal withdrawalAmount;
+
+                        Console.WriteLine("\n Mata in kontonummer att dra pengar ifrån: ");
+                        var withdrawalResult = int.TryParse(Console.ReadLine(), out withdrawalAccountNumber);
+                        if (!withdrawalResult || withdrawalAccountNumber.ToString().Length < 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.WriteLine("\n Mata in summa: ");
+                        var withdrawalIsDecimal = decimal.TryParse(Console.ReadLine(), out withdrawalAmount);
+                        if (!withdrawalIsDecimal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(
+                                "**** Du har ej angett en korrekt summa! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.NewWithdrawal(withdrawalAccountNumber, withdrawalAmount));
+                        Console.ReadLine();
+
                         break;
                     case 9:
-                        Console.WriteLine("\n Överföring skall köras");
+                        Console.Clear();
+                        int fromAccountNumber;
+                        int toAccountNumber;
+                        decimal amount;
+
+                        Console.WriteLine("\n Mata in konto att dra pengar ifrån: ");
+                        var validFromNumber = int.TryParse(Console.ReadLine(), out fromAccountNumber);
+                        if (!validFromNumber || fromAccountNumber.ToString().Length != 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+
+                        Console.WriteLine("\n Mata in konto pengarna skall sättas in på: ");
+                        var validToNumber = int.TryParse(Console.ReadLine(), out toAccountNumber);
+                        if (!validToNumber || toAccountNumber.ToString().Length != 5)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(
+                                "**** Du har ej angett ett korrekt kontonummer! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine("\n Mata in summa: ");
+                        var isDecimal = decimal.TryParse(Console.ReadLine(), out amount);
+                        if (!isDecimal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(
+                                "**** Du har ej angett en korrekt summa! Tryck [Enter] för att fortsätta ****");
+                            Console.ReadLine();
+                            break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine(system.NewTransfer(fromAccountNumber, toAccountNumber, amount));
+                        Console.ReadLine();
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("\n**** Ogiltigt kommando. Tryck [Enter] för att fortsätta ****");
                         Console.ReadLine();
                         break;
